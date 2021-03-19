@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<style>
+ body{
+        display: grid;
+        justify-items: center;
+    }
+
+    input {
+        font-size: 1.3em;
+        width: 100%;
+        height: 5vh;
+        border-radius: 10px 10px 10px 10px;
+    }
+
+     #submit {
+        width: 40%;
+        height: 5vh;
+        margin-left: 60%
+    }
+</style>
+<body>
+    <h1>Please Login Information</h1>
+
+    <form>
+        <input type="text" id="username" placeholder="User Name" value="Teddy"/>
+        <br><br>
+        <input type="password" id="password" placeholder="Password" value="AmigoParto" />
+        <br><br>
+        <input type="button" id="submit" value="Login" onclick="login()" />
+    </form>
+
+    <script>
+        function login() {
+           let username =  document.getElementById('username').value;
+           let password =  document.getElementById('password').value;
+
+           let loginObj = {
+               username: username,
+               password: password
+           }
+
+           fetch("http://localhost:3100/login", {
+           method: "POST",
+           "Content-Type": "application/json",
+           body: JSON.stringify(loginObj)
+       })
+       .then(response => response.json())
+       .then(data => {
+           console.log(data)
+        window.location.href = "/profile"
+       
+       })
+
+       .catch(err => {
+           if(err) throw err;
+       })
+    }
+        
+       
+    </script>
+</body>
+</html>

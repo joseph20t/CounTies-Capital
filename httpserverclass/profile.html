@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+</head>
+<style>
+    body{
+        display: grid;
+        justify-items: center;
+    }
+
+    div {
+        font-size: 1.5em;
+    }
+</style>
+<body>
+    <h1>User Profile</h1>
+
+    <div>
+        <div id="displaying_fullname"></div>
+        <div id="displaying_username"></div>
+        <div id="displaying_useremail"></div>
+    </div>
+
+    <script>
+        let displaying_fullname = document.getElementById('displaying_fullname');
+        let displaying_username = document.getElementById('displaying_username');
+        let displaying_useremail = document.getElementById('displaying_useremail');
+        
+        fetch("http://localhost:3100/profile_student_name")
+        .then(response => response.json())
+        .then(data => {
+           let studentsInformation = data.student_data;
+           console.log(studentsInformation)
+
+            let allFullname = studentsInformation.fullname;
+            displaying_fullname.innerHTML = `<p>Full Name: ${allFullname}</p>`;
+
+            let nameofuser = studentsInformation.username;
+           console.log(nameofuser)
+           displaying_username.innerHTML = `<p>User Name: ${nameofuser}</p>`;
+
+           let email = studentsInformation.email;
+           console.log(email)
+           displaying_useremail.innerHTML = `<p>Email: ${email}</p>`;
+       
+        })
+
+        .catch(err => {
+           if(err) throw err;
+        })
+    </script>
+</body>
+</html>
